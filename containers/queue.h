@@ -6,9 +6,12 @@
 
 namespace containers {
 
-template <class T, class Container = std::vector<T>> class priority_queue {
+template <class T, class Container = std::vector<T>,
+          class Compare = std::less<typename Container::value_type>>
+class priority_queue {
 public:
   using container_type = Container;
+  using value_compare = Compare;
   using value_type = typename Container::value_type;
   using size_type = typename Container::size_type;
   using reference = typename Container::reference;
@@ -58,7 +61,11 @@ private:
     size_type curr = 0;
     while (curr + 1 < container_.size()) {
       size_type child = min_child(curr);
-      if (container_[curr] <= container_[child]) {
+      if (child >= container_.size()) {
+        break;
+      }
+
+      if (compare_(container_[curr], container_[child])) {
         break;
       }
 
@@ -83,7 +90,7 @@ private:
       return left;
     }
 
-    if (container_[left] <= container_[right]) {
+    if (compare_(container_[left], container_[right])) {
       return left;
     } else {
       return right;
@@ -91,6 +98,7 @@ private:
   }
 
   Container container_;
+  Compare compare_;
 };
 
 } // namespace containers

@@ -20,6 +20,7 @@ TEST(PriorityQueue, PushNonDecreasing) {
   q.push(3);
   q.push(4);
   q.push(5);
+  q.push(5);
 
   std::vector<int> vals;
   while (!q.empty()) {
@@ -27,7 +28,7 @@ TEST(PriorityQueue, PushNonDecreasing) {
     q.pop();
   }
 
-  EXPECT_THAT(vals, ElementsAre(1, 1, 2, 3, 4, 5));
+  EXPECT_THAT(vals, ElementsAre(1, 1, 2, 3, 4, 5, 5));
 }
 
 TEST(PriorityQueue, PushNonIncreasing) {
@@ -46,7 +47,7 @@ TEST(PriorityQueue, PushNonIncreasing) {
     q.pop();
   }
 
-  EXPECT_THAT(vals, ElementsAre(5, 4, 3, 3, 3, 2, 1));
+  EXPECT_THAT(vals, ElementsAre(1, 2, 3, 3, 3, 4, 5));
 }
 
 TEST(PriorityQueue, PushUnordered) {
@@ -106,6 +107,24 @@ TEST(PriorityQueue, Size) {
   EXPECT_EQ(q.size(), 0);
   EXPECT_EQ(q.size(), 0);
   EXPECT_EQ(q.size(), 0);
+}
+
+TEST(PriorityQueue, Compare) {
+  priority_queue<int, std::vector<int>, std::greater<int>> q;
+  q.push(1);
+  q.push(1);
+  q.push(2);
+  q.push(3);
+  q.push(4);
+  q.push(5);
+
+  std::vector<int> vals;
+  while (!q.empty()) {
+    vals.push_back(q.top());
+    q.pop();
+  }
+
+  EXPECT_THAT(vals, ElementsAre(5, 4, 3, 2, 1, 1));
 }
 
 } // namespace containers
