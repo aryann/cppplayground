@@ -48,7 +48,7 @@ private:
         break;
       }
 
-      if (container_[*parent] <= container_[curr]) {
+      if (compare_(container_[*parent], container_[curr])) {
         break;
       }
 
