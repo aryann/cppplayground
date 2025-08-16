@@ -37,10 +37,10 @@ public:
   [[nodiscard]] auto size() const -> size_type { return container_.size(); }
 
 private:
-  void percolate_up() {
-    int curr = container_.size() - 1;
+  auto percolate_up() -> void {
+    size_type curr = container_.size() - 1;
     while (true) {
-      std::optional<int> parent = find_parent(curr);
+      std::optional<size_type> parent = find_parent(curr);
       if (!parent) {
         break;
       }
@@ -54,10 +54,10 @@ private:
     }
   }
 
-  void percolate_down() {
-    int curr = 0;
+  auto percolate_down() -> void {
+    size_type curr = 0;
     while (curr + 1 < container_.size()) {
-      int child = min_child(curr);
+      size_type child = min_child(curr);
       if (container_[curr] <= container_[child]) {
         break;
       }
@@ -67,7 +67,7 @@ private:
     }
   }
 
-  [[nodiscard]] static std::optional<int> find_parent(int i) {
+  [[nodiscard]] auto find_parent(size_type i) -> std::optional<size_type> {
     if (i < 1) {
       return std::nullopt;
     }
@@ -75,9 +75,9 @@ private:
     return (i - 1) / 2;
   }
 
-  [[nodiscard]] int min_child(int i) {
-    int left = i * 2 + 1;
-    int right = i * 2 + 2;
+  [[nodiscard]] auto min_child(size_type i) -> size_type {
+    size_type left = i * 2 + 1;
+    size_type right = i * 2 + 2;
 
     if (right >= container_.size()) {
       return left;

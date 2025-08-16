@@ -49,6 +49,65 @@ TEST(PriorityQueue, PushNonIncreasing) {
   EXPECT_THAT(vals, ElementsAre(5, 4, 3, 3, 3, 2, 1));
 }
 
+TEST(PriorityQueue, PushUnordered) {
+  priority_queue<int> q;
+  q.push(1);
+  q.push(2);
+  q.push(5);
+  q.push(9);
+  q.push(6);
+  q.push(4);
+  q.push(4);
+  q.push(6);
+  q.push(1);
+  q.push(2);
+
+  std::vector<int> vals;
+  while (!q.empty()) {
+    vals.push_back(q.top());
+    q.pop();
+  }
+
+  EXPECT_THAT(vals, ElementsAre(1, 1, 2, 2, 4, 4, 5, 6, 6, 9));
+}
+
+TEST(PriorityQueue, Size) {
+  priority_queue<int> q;
+  EXPECT_EQ(q.size(), 0);
+
+  q.push(1);
+  EXPECT_EQ(q.size(), 1);
+
+  q.push(2);
+  EXPECT_EQ(q.size(), 2);
+
+  q.push(3);
+  EXPECT_EQ(q.size(), 3);
+
+  q.push(4);
+  EXPECT_EQ(q.size(), 4);
+
+  q.push(5);
+  EXPECT_EQ(q.size(), 5);
+
+  q.pop();
+  EXPECT_EQ(q.size(), 4);
+
+  q.pop();
+  EXPECT_EQ(q.size(), 3);
+
+  q.pop();
+  EXPECT_EQ(q.size(), 2);
+
+  q.pop();
+  EXPECT_EQ(q.size(), 1);
+
+  q.pop();
+  EXPECT_EQ(q.size(), 0);
+  EXPECT_EQ(q.size(), 0);
+  EXPECT_EQ(q.size(), 0);
+}
+
 } // namespace containers
 
 int main(int argc, char **argv) {
