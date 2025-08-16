@@ -57,13 +57,13 @@ private:
   void percolate_down() {
     int curr = 0;
     while (curr + 1 < container_.size()) {
-      auto [child_idx, child_val] = min_child(curr);
-      if (container_[curr] <= child_val) {
+      int child = min_child(curr);
+      if (container_[curr] <= container_[child]) {
         break;
       }
 
-      std::swap(container_[curr], container_[child_idx]);
-      curr = child_idx;
+      std::swap(container_[curr], container_[child]);
+      curr = child;
     }
   }
 
@@ -75,20 +75,19 @@ private:
     return (i - 1) / 2;
   }
 
-  [[nodiscard]] std::pair<int, int> min_child(int i) {
-    std::pair<int, int> result;
-
+  [[nodiscard]] int min_child(int i) {
     int left = i * 2 + 1;
-    if (left < container_.size()) {
-      result = {left, container_[left]};
-    }
-
     int right = i * 2 + 2;
-    if (right < container_.size() && container_[right] < container_[left]) {
-      return {right, container_[right]};
+
+    if (right >= container_.size()) {
+      return left;
     }
 
-    return result;
+    if (container_[left] <= container_[right]) {
+      return left;
+    } else {
+      return right;
+    }
   }
 
   Container container_;
