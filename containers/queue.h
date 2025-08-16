@@ -17,7 +17,13 @@ public:
     return container_.front();
   }
 
+  auto push(const value_type &val) -> void {}
+  auto push(value_type &&val) -> void {}
+
+  auto pop() -> void {}
+
   [[nodiscard]] auto empty() const -> bool { return container_.empty(); }
+  [[nodiscard]] auto size() const -> size_type { return container_.size(); }
 
 private:
   Container container_;
