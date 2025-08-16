@@ -42,18 +42,15 @@ public:
 private:
   auto percolate_up() -> void {
     size_type curr = container_.size() - 1;
-    while (true) {
-      std::optional<size_type> parent = find_parent(curr);
-      if (!parent) {
+    while (curr > 0) {
+      size_type parent = find_parent(curr);
+
+      if (compare_(container_[parent], container_[curr])) {
         break;
       }
 
-      if (compare_(container_[*parent], container_[curr])) {
-        break;
-      }
-
-      std::swap(container_[curr], container_[*parent]);
-      curr = *parent;
+      std::swap(container_[curr], container_[parent]);
+      curr = parent;
     }
   }
 
@@ -74,11 +71,7 @@ private:
     }
   }
 
-  [[nodiscard]] auto find_parent(size_type i) -> std::optional<size_type> {
-    if (i < 1) {
-      return std::nullopt;
-    }
-
+  [[nodiscard]] auto find_parent(size_type i) -> size_type {
     return (i - 1) / 2;
   }
 

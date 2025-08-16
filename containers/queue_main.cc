@@ -3,10 +3,7 @@
 #include <iostream>
 
 int main() {
-
   absl::flat_hash_map<int, int> map;
-
-  std::cout << "size = " << map.size() << std::endl;
+  std::cout << "size = " << map.size();
   return 0;
 }
-
