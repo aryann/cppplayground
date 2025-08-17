@@ -109,8 +109,28 @@ TEST(PriorityQueue, Size) {
   EXPECT_EQ(q.size(), 0);
 }
 
-TEST(PriorityQueue, Compare) {
+TEST(PriorityQueue, DefaultConstructedCompare) {
   priority_queue<int, std::vector<int>, std::greater<int>> q;
+  q.push(1);
+  q.push(1);
+  q.push(2);
+  q.push(3);
+  q.push(4);
+  q.push(5);
+
+  std::vector<int> vals;
+  while (!q.empty()) {
+    vals.push_back(q.top());
+    q.pop();
+  }
+
+  EXPECT_THAT(vals, ElementsAre(5, 4, 3, 2, 1, 1));
+}
+
+TEST(PriorityQueue, CustomCompare) {
+  auto compare = [](const int a, const int b) { return a > b; };
+
+  priority_queue<int, std::vector<int>, decltype(compare)> q(compare);
   q.push(1);
   q.push(1);
   q.push(2);

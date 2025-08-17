@@ -17,6 +17,9 @@ public:
   using reference = typename Container::reference;
   using const_reference = typename Container::const_reference;
 
+  priority_queue() = default;
+  explicit priority_queue(Compare compare) : compare_(compare) {}
+
   [[nodiscard]] auto top() const -> const_reference {
     return container_.front();
   }
