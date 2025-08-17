@@ -127,6 +127,25 @@ TEST(PriorityQueue, Compare) {
   EXPECT_THAT(vals, ElementsAre(5, 4, 3, 2, 1, 1));
 }
 
+TEST(PriorityQueue, OtherTypes) {
+  priority_queue<std::string> q;
+  q.push("1");
+  q.push("1");
+  q.push("2");
+  q.push("3");
+  q.push("4");
+  q.push("5");
+  q.push("5");
+
+  std::vector<std::string> vals;
+  while (!q.empty()) {
+    vals.push_back(q.top());
+    q.pop();
+  }
+
+  EXPECT_THAT(vals, ElementsAre("1", "1", "2", "3", "4", "5", "5"));
+}
+
 } // namespace containers
 
 int main(int argc, char **argv) {
