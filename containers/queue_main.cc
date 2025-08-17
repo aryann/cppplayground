@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-int main() {
+int main(int argc, char **argv) {
   absl::flat_hash_map<int, int> map;
   std::cout << "size = " << map.size();
   return 0;

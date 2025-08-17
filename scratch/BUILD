@@ -3,29 +3,29 @@ load("@rules_cc//cc:cc_library.bzl", "cc_library")
 load("@rules_cc//cc:cc_test.bzl", "cc_test")
 
 cc_library(
-    name = "queue",
-    srcs = [],
-    hdrs = ["queue.h"],
+    name = "scratch",
+    srcs = ["scratch.cc"],
+    hdrs = ["scratch.h"],
     deps = [
         "@abseil-cpp//absl/container:flat_hash_map",
     ],
 )
 
 cc_test(
-    name = "queue_test",
+    name = "scratch_test",
     size = "small",
-    srcs = ["queue_test.cc"],
+    srcs = ["scratch_test.cc"],
     deps = [
-        ":queue",
+        ":scratch",
         "@googletest//:gtest",
         "@googletest//:gtest_main",
     ],
 )
 
 cc_binary(
-    name = "queue_main",
-    srcs = ["queue_main.cc"],
+    name = "scratch_main",
+    srcs = ["scratch_main.cc"],
     deps = [
-        ":queue",
+        ":scratch",
     ],
 )
