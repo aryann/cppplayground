@@ -8,6 +8,8 @@ cc_library(
     hdrs = ["scratch.h"],
     deps = [
         "@abseil-cpp//absl/container:flat_hash_map",
+        "@abseil-cpp//absl/status:status",
+        "@abseil-cpp//absl/status:statusor",
     ],
 )
 
@@ -17,6 +19,8 @@ cc_test(
     srcs = ["scratch_test.cc"],
     deps = [
         ":scratch",
+        "@abseil-cpp//absl/status:status",
+        "@abseil-cpp//absl/status:status_matchers",
         "@googletest//:gtest",
         "@googletest//:gtest_main",
     ],
