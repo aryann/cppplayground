@@ -5,7 +5,7 @@
 
 namespace scratch {
 
-absl::StatusOr<int> Succeed() { return absl::OkStatus(); }
+absl::StatusOr<int> Succeed() { return 1; }
 
 absl::StatusOr<int> Fail() {
   return absl::InvalidArgumentError("invalid argument");
